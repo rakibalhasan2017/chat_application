@@ -76,5 +76,16 @@ export const login = async(req, res) => {
 }
 
 export const logout = (req, res) => {
-    res.status(201).send("logout route");
+   try {
+    res.clearCookie('jwt', {
+        httpOnly: true,  // Ensures the cookie can't be accessed via JavaScript
+        secure: process.env.NODE_ENV === 'production',  // Ensures the cookie is only cleared over HTTPS in production
+        sameSite: 'strict', // Prevents cross-site request forgery (CSRF) attacks
+        path: '/',  // The cookie will be cleared for the entire site
+      });
+   }
+   catch (error) {
+    console.error("Error during logout:", error);
+    res.status(500).send("Logout error.");
+  }
 }
