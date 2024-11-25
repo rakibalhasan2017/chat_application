@@ -1,4 +1,8 @@
 import User from '../models/user.model.js'
+import {generateToken} from '../lib/utilities.js'
+import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
+
 export const signup = async(req, res) => {
    try {
     const {email, fullname, password} = req.body;
@@ -12,18 +16,27 @@ export const signup = async(req, res) => {
     else {
         const salt = await bcrypt.genSalt(10); // Generate a salt with 10 rounds
         const hashedPassword = await bcrypt.hash(password, salt);
-        const newuser = {
-            email, 
+        const newuser = new User({
+            email,
             fullname,
-            password: hashedPassword
-        }
+            password: hashedPassword,  // Store the hashed password
+          });
+        generateToken(newuser._id, res);
         await newuser.save();
+        res.status(201).json({
+            id:newuser._id,
+            fullname:newuser.fullname,
+            email:newuser.email,
+            profilepic:newuser.profilepic,
+        })
     }
 
    }
    catch(error) {
     console.log("something happened in sigup");
     res.status(400).send("signup error");
+    console.log(error.message);
+    
     
    }
 }

@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 const app = express();
-app.use(exprrss.json());
+app.use(express.json());
 dotenv.config();
 const PORT = process.env.PORT;
 const MONGODB_URL = process.env.MONGODB_URL;
