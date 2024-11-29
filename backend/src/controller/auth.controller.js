@@ -63,6 +63,7 @@ export const login = async(req, res) => {
                 profilepic: user.profilepic, // Assuming you have a profile picture field
             });
             console.log("login successfull");
+            // console.log(req.cookies);
             
         }
     }
@@ -75,17 +76,25 @@ export const login = async(req, res) => {
     
 }
 
-export const logout = (req, res) => {
+export const logout = async(req, res) => {
    try {
-    res.clearCookie('jwt', {
-        httpOnly: true,  // Ensures the cookie can't be accessed via JavaScript
-        secure: process.env.NODE_ENV === 'production',  // Ensures the cookie is only cleared over HTTPS in production
-        sameSite: 'strict', // Prevents cross-site request forgery (CSRF) attacks
-        path: '/',  // The cookie will be cleared for the entire site
-      });
+    res.clearCookie('jwt',"", {maxAge: 0});
+    res.status(400).json({message: "logout successfull"})
    }
    catch (error) {
-    console.error("Error during logout:", error);
+    console.log("Error during logout:");
+    console.log(error.message);
+    
     res.status(500).send("Logout error.");
+  }
+}
+
+export const updateprofile = async(req, res) => {
+  try {
+
+  }
+  catch(error) {
+    console.log("error happended in the update profile");
+    res.status()
   }
 }

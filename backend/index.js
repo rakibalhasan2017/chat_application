@@ -2,8 +2,10 @@ import express from 'express';
 import authrouter from './src/routes/auth.route.js'
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 
 const app = express();
+app.use(cookieParser);
 app.use(express.json());
 dotenv.config();
 const PORT = process.env.PORT;
