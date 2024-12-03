@@ -1,5 +1,5 @@
-import { Jwt } from "jsonwebtoken";
-import User from "../models/user.model";
+import  Jwt  from "jsonwebtoken";
+import User from "../models/user.model.js";
 export const protectedroute = async(req, res, next) => {
     try {
 
@@ -12,7 +12,6 @@ export const protectedroute = async(req, res, next) => {
            return res.status(400).json({message: "unauthorized request"})
         }
         const user = User.findById(decoded.userId);
-
         if(!user) {
             return  res.status(400).json({message: "user not found"})   
         }
@@ -23,7 +22,6 @@ export const protectedroute = async(req, res, next) => {
     catch(error) {
         console.log("error on the protectedroute");
         console.log(error.message);
-        
-        
+        res.status(500).send("protecrted route error")
     }
 }

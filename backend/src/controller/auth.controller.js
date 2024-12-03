@@ -2,6 +2,7 @@ import User from '../models/user.model.js'
 import {generateToken} from '../lib/utilities.js'
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
+import cloudinary from 'cloudinary';
 
 export const signup = async(req, res) => {
    try {
@@ -89,12 +90,23 @@ export const logout = async(req, res) => {
   }
 }
 
+
 export const updateprofile = async(req, res) => {
   try {
-
+    const {profilpic} = req.body;
+    const userId = req.user._id;
+    if(!profilpic) {
+     return res.status(500).send("profile picture must be required");
+    console.log("profile picture must be required");
+    }
+    const updatedresponse = await cloudinary.uploader.upload(profilpic);
+    const user = await User.findByIdAndUpdate(userId, {profilepic: updatedresponse.secure_url},  {new: true})
+    res.status(200).json(user);
   }
   catch(error) {
     console.log("error happended in the update profile");
-    res.status()
+    res.status(500).send("error happed in the update profile");
+    console.log(error.message);
+    
   }
 }
