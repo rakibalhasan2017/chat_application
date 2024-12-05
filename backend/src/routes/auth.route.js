@@ -12,5 +12,9 @@ router.post("/logout", logout)
 
  router.put("/updateprofile", protectedroute,  updateprofile);
  
+ router.get('/check', protectedroute, (req, res) => {
+    res.status(200).send("Authenticated");
+  });
+ 
 
 export default router

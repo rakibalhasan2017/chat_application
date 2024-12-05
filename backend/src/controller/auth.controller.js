@@ -6,7 +6,8 @@ import cloudinary from 'cloudinary';
 
 export const signup = async(req, res) => {
    try {
-    const {email, fullname, password} = req.body;
+    const {fullname, email, password} = req.body;
+    
     if(!email || !fullname || !password) {
        return res.status(400).send("fill all the fields");
     }
@@ -31,7 +32,6 @@ export const signup = async(req, res) => {
             profilepic:newuser.profilepic,
         })
     }
-
    }
    catch(error) {
     console.log("something happened in sigup");
@@ -64,8 +64,6 @@ export const login = async(req, res) => {
                 profilepic: user.profilepic, // Assuming you have a profile picture field
             });
             console.log("login successfull");
-            // console.log(req.cookies);
-            
         }
     }
     }

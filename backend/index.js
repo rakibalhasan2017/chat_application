@@ -5,11 +5,19 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cloudinary from 'cloudinary';
+import cors from 'cors';
 
 const app = express();
-app.use(cookieParser);
+app.use(cookieParser());
 app.use(express.json());
 dotenv.config();
+const corsOptions = {
+    origin: 'http://localhost:5173',  // Replace with your frontend URL
+    methods: 'GET,POST,PUT,DELETE',  // Allowed methods
+    credentials: true,  // Allow cookies
+};
+
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT;
 const MONGODB_URL = process.env.MONGODB_URL;
