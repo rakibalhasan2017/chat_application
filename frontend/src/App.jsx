@@ -10,7 +10,6 @@ import PrivateRoute from "./components/PrivateRoute .jsx";
 const App = () => {
   return (
     <div>
-      <h1>hello</h1>
       <Routes>
       <Route path="/" element={<PrivateRoute element={Homepage} />} />
         <Route path="/signup" element={<Signuppage />} />

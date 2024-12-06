@@ -18,15 +18,17 @@ const Login = () => {
       console.log("kichu ki print hoi");
       const response = await axios.post(`http://localhost:5000/api/auth/login`, data,  { withCredentials: true });   
       setloading(false);
-      setTimeout(() => {
-       navigate("/");
-    }, 1000);
+      navigate("/");
     } catch (error) {
       console.log(error.message);
       setloading(false);
       alert("Login error happened, check console");
     }
   };
+  const handleLoginRedirect = () => {
+    navigate("/signup"); // Navigate to login page on button click
+  };
+
 
   if (loading) {
     return <Spinner />;
@@ -59,7 +61,14 @@ const Login = () => {
           </div>
           <button type="submit">Login</button>
         </form>
+        { <div className={styles.registerFooter}>
+            <p>dont have an account?</p>
+            <button onClick={handleLoginRedirect} className={styles.loginButton}>
+              Sign Up
+            </button>
+          </div> }
       </div>
+
     </div>
   );
 };

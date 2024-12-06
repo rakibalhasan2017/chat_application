@@ -82,4 +82,49 @@
     margin-top: 10px;
     text-align: center;
   }
+
+
+  
+  .registerFooter {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .registerFooter a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .registerFooter a:hover {
+    text-decoration: underline;
+  }
+
+
+  .registerFooter {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .loginButton {
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .loginButton:hover {
+    background-color: #217dbb;
+  }
+  
+  
   
