@@ -37,7 +37,7 @@ const Navbar =  () => {
       <div style={styles.menuContainer}>
         <ul style={styles.menu}>
           <li style={styles.menuItem}>
-            <Link to="/settings" style={styles.link}>Settings</Link>
+            <Link to="/setting" style={styles.link}>Settings</Link>
           </li>
           <li style={styles.menuItem}>
             <Link to="#" onClick={handleLogout} style={styles.logoutLink}>Logout</Link>

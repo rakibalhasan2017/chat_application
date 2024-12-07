@@ -6,10 +6,13 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cloudinary from 'cloudinary';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
+import multer from 'multer';
 
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+app.use(fileUpload());
 dotenv.config();
 const corsOptions = {
     origin: 'http://localhost:5173',  // Replace with your frontend URL

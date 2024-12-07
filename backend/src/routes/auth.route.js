@@ -1,6 +1,7 @@
 import express from 'express';
-import { signup, login, logout, updateprofile } from '../controller/auth.controller.js';
+import { signup, login, logout, updateprofile, getuser } from '../controller/auth.controller.js';
 import { protectedroute } from '../middlewear/protectedroute.js'
+import cloudinary from '../lib/cloudinary.js'
 
 const router = express.Router();
 
@@ -10,11 +11,9 @@ router.post("/login", login);
 
 router.post("/logout", logout)
 
- router.put("/updateprofile", protectedroute,  updateprofile);
+ router.put("/updateprofile", protectedroute,   updateprofile);
  
- router.get('/check', protectedroute, (req, res) => {
-    res.status(200).send("Authenticated");
-  });
+ router.get("/user", protectedroute, getuser);
  
 
 export default router
