@@ -131,7 +131,7 @@ const PrivateRoute = ({ element: Element, ...rest }) => {
       return false;
     }
   };
-  const token = Cookies.get("jwt");
+  const token = Cookies.get("jwt");  
   const isAuthenticated = token ? isTokenValid(token) : false;  
   return isAuthenticated ? (
     <Element {...rest} />

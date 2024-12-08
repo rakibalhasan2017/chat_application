@@ -5,6 +5,10 @@ export const getalluser = async(req, res) => {
     try {
         const loggedinuserid = req.user._id;
         const alluser = await User.find({ _id: { $ne: loggedinuserid } }).select("-password");
+        // console.log("fetch all the user from the backend");
+        
+        // console.log(alluser);
+        
         res.status(201).json(alluser);
     } catch (error) {
         console.log("error happed in the get all the user of the sidebar");

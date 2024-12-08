@@ -1,0 +1,93 @@
+/* Sidebar container */
+.sidebar-container {
+  width: 250px; /* Sidebar width */
+  background-color: #f4f6f9; /* Light background color */
+  padding: 20px;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1); /* Light shadow for separation */
+  height: 100vh; /* Full height of the viewport */
+  overflow-y: auto; /* Allow vertical scroll if there are too many users */
+}
+
+/* Sidebar header style */
+.sidebar-header {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Container for user list */
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Individual user item */
+.user-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  background-color: #fff; /* White background */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for the user item */
+}
+
+/* Hover effect when hovering over a user item */
+.user-item:hover {
+  background-color: #e6f7ff; /* Light blue background on hover */
+  transform: translateX(5px); /* Slight shift to the right */
+}
+
+/* Selected user item */
+.user-item.selected {
+  background-color: #d6f5ff; /* Light blue background for selected user */
+  border-left: 4px solid #1890ff; /* Blue border to indicate selection */
+  font-weight: bold; /* Make selected user bold */
+}
+
+/* Profile image container */
+.user-image-container {
+  margin-right: 15px; /* Space between the image and the name */
+  width: 40px; /* Set width of the profile image */
+  height: 40px; /* Set height of the profile image */
+  border-radius: 50%; /* Make image round */
+  overflow: hidden; /* Hide overflow for rounded image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* User profile image style */
+.user-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the entire container */
+}
+
+/* Default avatar when no image is available */
+.default-avatar {
+  width: 100%;
+  height: 100%;
+  background-color: #d9d9d9; /* Grey background for default avatar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+}
+
+/* User name style */
+.user-name {
+  font-size: 16px;
+  color: #333;
+  font-weight: normal;
+  margin-left: 10px; /* Add some space between the image and the name */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis if the name is too long */
+  white-space: nowrap;
+}
