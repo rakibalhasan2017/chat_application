@@ -21,6 +21,18 @@ export const usechatstore = create((set) => ({
     }
   },
 
+  getmessage: async (id) => {
+    set({ ismesageloading: true });
+    try {
+      const res = await axios.get(`http://localhost:5000/api/message/${id}`, { withCredentials: true });
+      set({ messages: res.data });
+    } catch (error) {
+      console.log('Error happened to get all the messages from frontend');
+      console.log(error.message);
+    } finally {
+      set({ ismesageloading: false    }); }
+    },
+
   setselecteduser: (user) => {
     set({ selecteduser: user });
   },

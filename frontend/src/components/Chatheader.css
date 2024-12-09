@@ -1,0 +1,35 @@
+.chatheader-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chatheader {
+    display: flex;
+    align-items: center;
+}
+
+.chatheader-profilepic {
+    width: 40px; /* Adjust to fit the size you want */
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.chatheader-fullname {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+/* Optionally, add styles for hover effect */
+.chatheader:hover .chatheader-profilepic {
+    border: 2px solid #0078d4; /* Optional border on hover */
+    cursor: pointer;
+}

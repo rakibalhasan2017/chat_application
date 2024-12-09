@@ -14,6 +14,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(fileUpload());
 dotenv.config();
+
 const corsOptions = {
     origin: 'http://localhost:5173',  // Replace with your frontend URL
     methods: 'GET,POST,PUT,DELETE',  // Allowed methods
@@ -21,7 +22,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 const PORT = process.env.PORT;
 const MONGODB_URL = process.env.MONGODB_URL;
 

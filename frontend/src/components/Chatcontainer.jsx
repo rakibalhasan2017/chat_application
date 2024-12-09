@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { usechatstore } from '../stores/usechatstore';
 import Spinner from './Spinner';
+import Chatheader from './Chatheader';
+import Chatinput from './Chatinput';
 
 
 const Chatcontainer = () => {
-  const { users, selecteduser, getuser, isuserloading, setselecteduser } = usechatstore();
-  console.log(selecteduser);
+  const {messages, getmessage, selecteduser, ismesageloading } = usechatstore();
+
+  useEffect(() => {
+    if(selecteduser){
+      getmessage(selecteduser._id);
+    }
+  }, [selecteduser])
+
+  if(ismesageloading){
+    return <Spinner/>
+  }
+
   return (
     <div>
-      <h1>chatcontainer is selected</h1>
+      <Chatheader/>
+      <p>this is the message section</p>
+      <Chatinput/>
     </div>
   )
 }
