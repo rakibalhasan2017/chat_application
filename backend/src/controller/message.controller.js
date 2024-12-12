@@ -5,10 +5,6 @@ export const getalluser = async(req, res) => {
     try {
         const loggedinuserid = req.user._id;
         const alluser = await User.find({ _id: { $ne: loggedinuserid } }).select("-password");
-        // console.log("fetch all the user from the backend");
-        
-        // console.log(alluser);
-        
         res.status(201).json(alluser);
     } catch (error) {
         console.log("error happed in the get all the user of the sidebar");
@@ -40,7 +36,8 @@ export const getallmessage = async(req, res) => {
 
  export const sendmessage = async(req, res) => {
     try {
-        const {textt, image} = req.body;
+        console.log("send message in the backend");
+        const {text, image} = req.body;
         const {id: chatid} = req.params;
         const myid = req.user._id;
         let imageUrl = null;
@@ -48,10 +45,12 @@ export const getallmessage = async(req, res) => {
           const uploadResult = await cloudinary.uploader.upload(image);
           imageUrl = uploadResult.secure_url;  // Get the image URL from Cloudinary
         }
+        console.log(text);
+        console.log(image);
         const newMessage = new Message({
             sender: myid,
             receiver: chatid,
-            text: textt,
+            text: text,
             image: imageUrl,  // Store image URL or null
           });
           await newMessage.save();

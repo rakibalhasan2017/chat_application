@@ -8,7 +8,6 @@ import './Homepage.css';
 
 const Homepage = () => {
   const { selecteduser } = usechatstore();
-
   return (
     <div className="homepage-container">
       <Navbar />

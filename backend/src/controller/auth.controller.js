@@ -44,7 +44,6 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  console.log("dekhi tow");
   const { email, password } = req.body;
   try {
     if (!email || !password) {
@@ -55,23 +54,18 @@ export const login = async (req, res) => {
       return res.status(400).send("this user is not signed in");
     } else {
       const isMatch = await bcrypt.compare(password, user.password);
-      console.log(isMatch);
       if (!isMatch) {
         return res
           .status(400)
           .send("Invalid password, password doesn't match.");
       } else {
-        console.log("password matched");
         generateToken(user._id, res);
-        console.log("dekhi tow 2");
-        
         res.status(200).json({
           id: user._id,
           fullname: user.fullname,
           email: user.email,
           profilepic: user.profilepic, // Assuming you have a profile picture field
         });
-        console.log("login successfull");
       }
     }
   } catch (error) {

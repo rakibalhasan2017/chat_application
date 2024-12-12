@@ -15,7 +15,6 @@ const Login = () => {
     const data = { email, password };
     setloading(true);
     try {
-      console.log("kichu ki print hoi");
       const response = await axios.post(`http://localhost:5000/api/auth/login`, data,  { withCredentials: true });   
       setloading(false);
       navigate("/");
@@ -28,8 +27,7 @@ const Login = () => {
   const handleLoginRedirect = () => {
     navigate("/signup"); // Navigate to login page on button click
   };
-
-
+  
   if (loading) {
     return <Spinner />;
   }
