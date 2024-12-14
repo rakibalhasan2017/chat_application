@@ -42,18 +42,18 @@ export const usechatstore = create((set, get) => ({
   sendmessage: async (messagedata) => {
     try {
       const { selecteduser, messages } = get();
-       console.log(messagedata);
+      //  console.log(messagedata);
       const res = await axios.post(
         `http://localhost:5000/api/message/send/${selecteduser._id}`,
         messagedata,
         { withCredentials: true }
       );
       const currentMessages = get().messages;
-      console.log("current message", currentMessages);
+     console.log("sended message", res.data);
       set({
         messages: [...currentMessages, res.data], 
       });
-      console.log("ekhn message gula", messages);
+      // console.log("ekhn message gula", messages);
       
     } catch (error) {
       console.log("Error happened to send the message from frontend");

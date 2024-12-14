@@ -11,14 +11,13 @@ const Navbar =  () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleLogout = async () => {
-    clearloggedinuser();
     setLoading(true);
     try {
       const response = await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true } );
-
       if (response.status === 200) {
         Cookies.remove("jwt");
         navigate("/login");
+        clearloggedinuser();
       }else {
         console.log("Logout failed:", await response.json());
         alert("Logout failed. Please try again.");
