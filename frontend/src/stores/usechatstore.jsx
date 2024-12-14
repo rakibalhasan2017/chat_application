@@ -7,6 +7,7 @@ export const usechatstore = create((set, get) => ({
   selecteduser: null, // Initially null, will store the selected user
   isuserloading: false,
   ismesageloading: false,
+  loggedinuser: JSON.parse(localStorage.getItem("loggedinuser")) || null,
 
   getuser: async () => {
     set({ isuserloading: true });
@@ -48,9 +49,12 @@ export const usechatstore = create((set, get) => ({
         { withCredentials: true }
       );
       const currentMessages = get().messages;
+      console.log("current message", currentMessages);
       set({
-        messages: [...currentMessages, messages], 
+        messages: [...currentMessages, res.data], 
       });
+      console.log("ekhn message gula", messages);
+      
     } catch (error) {
       console.log("Error happened to send the message from frontend");
       console.log(error.message);
@@ -59,5 +63,13 @@ export const usechatstore = create((set, get) => ({
 
   setselecteduser: (user) => {
     set({ selecteduser: user });
+  },
+  setloggedinuser: (user) => {
+    localStorage.setItem("loggedinuser", JSON.stringify(user)); // Save to localStorage
+    set({ loggedinuser: user });
+  },
+  clearloggedinuser: () => {
+    localStorage.removeItem("loggedinuser"); // Remove from localStorage
+    set({ loggedinuser: null });
   },
 }));

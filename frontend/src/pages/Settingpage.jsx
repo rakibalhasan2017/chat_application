@@ -17,21 +17,18 @@ const Settingpage = () => {
         console.error('Error fetching user profile:', error);
       }
     };
-  
     fetchUserProfile();
   }, []);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async () => {
       const base64Image = reader.result;
       setSelectedImage(base64Image);
       setLoading(true);
-
       try {
         const res = await axios.put(
           'http://localhost:5000/api/auth/updateprofile',

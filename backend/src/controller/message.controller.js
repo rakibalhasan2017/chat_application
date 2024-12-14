@@ -16,6 +16,7 @@ export const getalluser = async(req, res) => {
 
 export const getallmessage = async(req, res) => {
     try {
+        console.log("get all the message of the user from the backend");
         const {id: usertochatid} = req.params;
         const myid = req.user._id;
         const messages = await Message.find({
@@ -24,8 +25,7 @@ export const getallmessage = async(req, res) => {
                 { sender: usertochatid, receiver: myid }   // Messages where the other user is the sender
             ]
         });
-          res.status(200).json(messsages);
-
+          res.status(200).json(messages);
     } catch (error) {
         console.log("error happed in the get all the message of the user");
         console.log(error.message);
