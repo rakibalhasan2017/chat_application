@@ -4,16 +4,17 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner.jsx";
 import axios from "axios";
-import { usechatstore } from "../stores/usechatstore";
+import { useauthstore } from "../stores/useauthstore.jsx";
 
 const Navbar =  () => {
-  const {clearloggedinuser } = usechatstore();
+  const {clearloggedinuser, logout } = useauthstore();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
   const handleLogout = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true } );
+      const response = await logout();
       if (response.status === 200) {
         Cookies.remove("jwt");
         navigate("/login");

@@ -3,10 +3,12 @@ import { usechatstore } from "../stores/usechatstore";
 import Spinner from "./Spinner";
 import Chatheader from "./Chatheader.jsx";
 import Chatinput from "./Chatinput.jsx";
-
+import { useauthstore } from "../stores/useauthstore.jsx";
 
 const Chatcontainer = () => {
-  const { messages, getmessage, selecteduser, ismesageloading, loggedinuser } = usechatstore();
+  const { messages, getmessage, selecteduser, ismesageloading } = usechatstore();
+  const {loggedinuser} = useauthstore();
+  // console.log("loggined user from chat container", loggedinuser);
   useEffect(() => {
     if (selecteduser) {
       getmessage(selecteduser._id);
@@ -46,7 +48,7 @@ const Chatcontainer = () => {
     <div style={{ marginLeft: message.sender === loggedinuser.id ? "10px" : "0", marginRight: message.senderId !== loggedinuser._id ? "10px" : "0" }}>
       <img
         src={
-          message.sender === loggedinuser._id
+          message.sender === loggedinuser.id
             ? loggedinuser.profilepic || "/avatar.png"
             : selecteduser.profilepic || "/avatar.png"
         }

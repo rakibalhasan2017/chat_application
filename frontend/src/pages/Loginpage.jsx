@@ -3,10 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./login.module.css";
 import Spinner from "../components/Spinner.jsx";
-import {usechatstore} from "../stores/usechatstore.jsx";
+import {useauthstore} from "../stores/useauthstore.jsx";
 
 const Login = () => {
-  const {loggedinuser, setloggedinuser} = usechatstore();
+  const {loggedinuser, login, setloggedinuser} = useauthstore();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [loading, setloading] = useState(false);
@@ -17,10 +17,11 @@ const Login = () => {
     const data = { email, password };
     setloading(true);
     try {
-      const response = await axios.post(`http://localhost:5000/api/auth/login`, data,  { withCredentials: true });   
+      const response = await login(data);
+      // console.log("from the login page", response);
       setloading(false);
-      setloggedinuser(response.data);
-      // console.log("from the login page", loggedinuser);
+       setloggedinuser(response);
+       console.log("from the login page", loggedinuser);
       navigate("/");
     } catch (error) {
       console.log(error.message);

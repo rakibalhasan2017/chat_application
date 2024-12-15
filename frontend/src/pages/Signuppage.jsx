@@ -3,8 +3,10 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./signup.module.css";
 import Spinner from "../components/Spinner.jsx";
+import { useauthstore } from "../stores/useauthstore";
 
 const Register = () => {
+  const {signup} = useauthstore();
   const [fullname, setfullname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -16,7 +18,7 @@ const Register = () => {
     const data = { fullname, email, password };
     setloading(true);
     try {
-      const response = await axios.post(`http://localhost:5000/api/auth/signup`, data, { withCredentials: true });
+      const response = await signup(data);
       setloading(false);
       navigate("/login");
     } catch (error) {
