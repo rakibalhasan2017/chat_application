@@ -6,14 +6,21 @@ import Chatinput from "./Chatinput.jsx";
 import { useauthstore } from "../stores/useauthstore.jsx";
 
 const Chatcontainer = () => {
-  const { messages, getmessage, selecteduser, ismesageloading } = usechatstore();
+  const {socket} = useauthstore();
+  const { messages, getmessage, selecteduser, ismesageloading, subscribeToMessages, unsubscribefrommessage } = usechatstore();
   const {loggedinuser} = useauthstore();
-  // console.log("loggined user from chat container", loggedinuser);
+  //  console.log("loggined user from chat container", loggedinuser);
   useEffect(() => {
     if (selecteduser) {
       getmessage(selecteduser._id);
+      console.log(socket?.connected);
+      if (socket?.connected) {
+        console.log("vitore dhuksii tow");
+        subscribeToMessages();
+      }
+      return () => unsubscribefrommessage();
     }
-  }, [selecteduser]);
+  }, [selecteduser, getmessage, subscribeToMessages, unsubscribefrommessage]);
 
   if (ismesageloading) {
     return <Spinner />;
@@ -39,7 +46,7 @@ const Chatcontainer = () => {
     key={message._id}
     style={{
       display: "flex",
-      flexDirection: message.sender === loggedinuser.id ? "row-reverse" : "row",
+       flexDirection: message.sender === loggedinuser.id ? "row-reverse" : "row",
       marginBottom: "15px",
       alignItems: "flex-start",
     }}

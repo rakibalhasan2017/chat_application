@@ -13,15 +13,19 @@ const io = new Server(server, {
   },
 });
 
+export function getReceiverSocketId(userId) {
+    return userSocketMap[userId];
+  }
+
+const userSocketMap = {}; // Store user id and socket id
+
 io.on("connection", (socket) => {
   console.log("A user connected", socket.id);
-
-  socket.emit("connected", { message: "You are connected to the server!" });
-
-socket.on("disconnect", () => {
-   console.log("User disconnected", socket.id);
+  const userId = socket.handshake.query.userId;
+  if (userId) userSocketMap[userId] = socket.id;
+  socket.on("disconnect", () => {
+    console.log("User disconnected", socket.id);
   });
-
 });
 
 export { io, server, app };

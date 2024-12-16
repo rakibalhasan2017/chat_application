@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import { useauthstore } from "./useauthstore";
 
 export const usechatstore = create((set, get) => ({
   messages: [],
@@ -63,4 +64,29 @@ export const usechatstore = create((set, get) => ({
   setselecteduser: (user) => {
     set({ selecteduser: user });
   },
+
+  subscribeToMessages: () => {
+    const { selecteduser } = get();
+    console.log("ei jee subss");
+    if (!selecteduser) return;
+    const socket = useauthstore.getState().socket;
+    console.log("socket in the subscribeToMessages", socket);
+    socket.on("newMessage", (newMessage) => {
+      console.log("newMessage in the subscribeToMessages", newMessage);
+      const isMessageSentFromSelectedUser = newMessage.sender === selecteduser._id;
+      if (!isMessageSentFromSelectedUser) return;
+      set({
+        messages: [...get().messages, newMessage],
+      });
+      console.log("message on the suncrib", messages);
+    });
+  },
+
+  unsubscribefrommessage: () => {
+    const socket = get().socket;
+    if (socket?.connected) {
+      socket.off("newMessage");
+      console.log("Unsubscribed from newMessage events");
+    }
+  }
 }));

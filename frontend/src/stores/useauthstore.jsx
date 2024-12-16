@@ -5,10 +5,9 @@ import { io } from "socket.io-client";
 export const useauthstore = create((set, get) => ({
   issigningup: false,
   isloggingin: false,
-  loggedinuser: null,
+  // loggedinuser: null,
   socket:null,
-
-  // loggedinuser: JSON.parse(localStorage.getItem("loggedinuser")) || null,
+   loggedinuser: JSON.parse(localStorage.getItem("loggedinuser")) || null,
   login: async (data) => {
     set({ isloggingin: true });
     try {
@@ -80,14 +79,5 @@ export const useauthstore = create((set, get) => ({
     console.log("Disconnecting from socket");
     if (get().socket?.connected) get().socket.disconnect();
   },
-
-  // disconnectsocket: () => {
-  //   const { socket } = get();
-  //   if (socket?.connected) {
-  //     socket.disconnect();
-  //     set({ socket: null });
-  //     console.log("Disconnected from socket");
-  //   }
-  // }
 
 }));
