@@ -8,8 +8,8 @@ import cloudinary from 'cloudinary';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import multer from 'multer';
+import {app, server, io} from './src/lib/socket.js';
 
-const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(fileUpload());
@@ -30,9 +30,8 @@ app.use("/api/message", messagerouter);
 
 mongoose.connect(MONGODB_URL)
 .then(() => {
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
         console.log(`server is running to ${PORT}`);
-        
     })
     console.log('MongoDB connected successfully');
 })

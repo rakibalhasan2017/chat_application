@@ -21,7 +21,7 @@ const Login = () => {
       // console.log("from the login page", response);
       setloading(false);
        setloggedinuser(response);
-       console.log("from the login page", loggedinuser);
+      //  console.log("from the login page", loggedinuser);
       navigate("/");
     } catch (error) {
       console.log(error.message);
@@ -45,9 +45,10 @@ const Login = () => {
           <div className={styles.inputGroup}>
             <label>Email:</label>
             <input
-              type="text"
+              type="email"  
               value={email}
               onChange={(e) => setemail(e.target.value)}
+              autoComplete="email"
               placeholder="Enter Your Email"
               required
             />
