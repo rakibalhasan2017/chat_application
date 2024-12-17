@@ -1,8 +1,9 @@
 This is my first full-stack project, which took 12+ days to complete. I learned a lot from this project, especially how to manage and implement a project step by step. I discovered how to keep myself motivated and make consistent progress by breaking the work down into smaller tasks. Previously, all the projects I worked on were completed in 1-2 days, so this was the longest project I’ve worked on so far.
 
-Tools Used:
-MERN Stack
-New Technologies I Learned:
+Tools Used
+MERN Stack (MongoDB, Express.js, React.js, Node.js)
+New Technologies I Learned
+
 Zustand: This was my first time implementing state management on a larger scale (for me, it's huge!).
 WebSockets: I learned how real-time data fetching works.
 useRef Hook: I got familiar with using the useRef hook for the first time.
