@@ -1,40 +1,54 @@
-import express from 'express';
-import authrouter from './src/routes/auth.route.js'
-import messagerouter from './src/routes/message.route.js'
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import cookieParser from 'cookie-parser';
-import cloudinary from 'cloudinary';
-import cors from 'cors';
-import fileUpload from 'express-fileupload';
-import multer from 'multer';
-import {app, server, io} from './src/lib/socket.js';
+import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import fileUpload from "express-fileupload";
+import path from "path";
 
-app.use(cookieParser());
-app.use(express.json());
-app.use(fileUpload());
+import authrouter from "./src/routes/auth.route.js";
+import messagerouter from "./src/routes/message.route.js";
+import { app, server } from "./src/lib/socket.js";
+
 dotenv.config();
 
-const corsOptions = {
-    origin: 'http://localhost:5173',  // Replace with your frontend URL
-    methods: 'GET,POST,PUT,DELETE',  // Allowed methods
-    credentials: true,  // Allow cookies
-};
+/* ================= Middleware ================= */
+app.use(express.json());
+app.use(cookieParser());
+app.use(fileUpload());
 
-app.use(cors(corsOptions));
-const PORT = process.env.PORT;
-const MONGODB_URL = process.env.MONGODB_URL;
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "*",
+    credentials: true,
+  })
+);
 
+/* ================= Routes ================= */
 app.use("/api/auth", authrouter);
 app.use("/api/message", messagerouter);
 
-mongoose.connect(MONGODB_URL)
-.then(() => {
-    server.listen(PORT, () => {
-        console.log(`server is running to ${PORT}`);
-    })
-    console.log('MongoDB connected successfully');
-})
-.catch((err) => {
-    console.error('Error connecting to MongoDB:', err);
+/* ================= Serve Frontend ================= */
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
+
+/* ================= Database & Server ================= */
+const PORT = process.env.PORT || 5000;
+const MONGODB_URL = process.env.MONGODB_URL;
+
+mongoose
+  .connect(MONGODB_URL)
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+    console.log("✅ MongoDB connected");
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+  });
