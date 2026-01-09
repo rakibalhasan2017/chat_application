@@ -24,7 +24,12 @@ app.use(
   })
 );
 
-/* ================= Routes ================= */
+/* ================= Health Check (CRITICAL) ================= */
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
+/* ================= API Routes ================= */
 app.use("/api/auth", authrouter);
 app.use("/api/message", messagerouter);
 
@@ -37,16 +42,17 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend/dist/index.html"));
 });
 
-/* ================= Database & Server ================= */
-const PORT = process.env.PORT || 5000;
-const MONGODB_URL = process.env.MONGODB_URL;
+/* ================= Start Server FIRST ================= */
+const PORT = process.env.PORT || 8080;
 
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
+
+/* ================= Connect MongoDB (NON-BLOCKING) ================= */
 mongoose
-  .connect(MONGODB_URL)
+  .connect(process.env.MONGODB_URL)
   .then(() => {
-    server.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-    });
     console.log("✅ MongoDB connected");
   })
   .catch((err) => {
