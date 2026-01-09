@@ -4,7 +4,7 @@ import Homepage from "./pages/Homepage.jsx";
 import Signuppage from "./pages/Signuppage.jsx";
 import Loginpage from "./pages/Loginpage.jsx";
 import Settingpage from "./pages/Settingpage.jsx";
-import PrivateRoute from "./components/PrivateRoute .jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 const App = () => {
   return (
