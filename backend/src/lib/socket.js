@@ -22,6 +22,7 @@ const userSocketMap = {}; // Store user id and socket id
 io.on("connection", (socket) => {
   console.log("A user connected", socket.id);
   const userId = socket.handshake.query.userId;
+  console.log("socket details in the socket js", socket);
   if (userId) userSocketMap[userId] = socket.id;
   socket.on("disconnect", () => {
     console.log("User disconnected", socket.id);
