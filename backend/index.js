@@ -45,7 +45,7 @@ app.use("/api/auth", authrouter);
 app.use("/api/message", messagerouter);
 
 /* ================= Serve Frontend ================= */
-const rootDir = path.resolve();
+const rootDir = path.resolve("..");
 const frontendPath = path.join(rootDir, "frontend/dist");
 
 console.log("📁 Frontend path:", frontendPath);
